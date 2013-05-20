@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class BlogController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="blog_index")
      */
     public function indexAction()
     {
@@ -24,7 +24,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/{id}/show")
+     * @Route("/{id}/show", name="blog_show")
      */
     public function showAction($id)
     {
