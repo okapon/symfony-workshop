@@ -3,12 +3,18 @@
 {% block page_title 'Blog Posts' %}
 
 {% block content %}
+<div>
+  <a class="btn btn-primary" href="{{ path('blog_new') }}">新しい記事を書く</a>
+</div>
 <table class="table">
+  <thead>
     <tr>
         <td>ID</td>
         <td>タイトル</td>
         <td>作成日</td>
     </tr>
+  </thead>
+  <tbody>
     {# ここから、posts配列をループして、投稿記事の情報を表示 #}
     {% for post in posts %}
     <tr>
@@ -21,5 +27,6 @@
         <td colspan="3">No Posts</td>
     </tr>
     {% endfor %}
+  </tbody>
 </table>
 {% endblock content %}

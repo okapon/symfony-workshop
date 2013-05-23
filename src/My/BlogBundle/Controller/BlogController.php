@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Symfony\Component\HttpFoundation\Request;
+
+use My\BlogBundle\Entity\Post;
+
 /**
  * @Route("/blog")
  * @Template()
@@ -36,5 +40,37 @@ class BlogController extends Controller
         }
 
         return array('post' => $post);
+    }
+
+    /**
+     * @Route("/new", name="blog_new")
+     */
+    public function newAction(Request $request)
+    {
+        // フォームの組立
+        $form = $this->createFormBuilder(new Post())
+            ->add('title')
+            ->add('body')
+            ->getForm();
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+            // バリデーション
+            if ($form->isValid()) {
+                // エンティティを永続化
+                $post = $form->getData();
+                $post->setCreatedAt(new \DateTime());
+                $post->setUpdatedAt(new \DateTime());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($post);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('blog_index'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+         );
     }
 }
