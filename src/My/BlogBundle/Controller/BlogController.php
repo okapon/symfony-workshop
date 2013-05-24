@@ -70,8 +70,46 @@ class BlogController extends Controller
         }
 
         return array(
+            'post' => $post,
             'form' => $form->createView(),
          );
+    }
+
+    /**
+     * @Route("/{id}/edit", name="blog_edit")
+     */
+    public function editAction(Request $request, $id)
+    {
+        // DBから取得
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('MyBlogBundle:Post')->find($id);
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+
+        // フォームの組立
+        $form = $this->createFormBuilder($post)
+            ->add('title')
+            ->add('body')
+            ->getForm();
+
+        // バリデーション
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+            if ($form->isValid()) {
+                // 更新されたエンティティをデータベースに保存
+                $post = $form->getData();
+                $post->setUpdatedAt(new \DateTime());
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('blog_index'));
+            }
+        }
+
+        return array(
+            'post' => $post,
+            'form' => $form->createView(),
+        );
     }
 
     /**

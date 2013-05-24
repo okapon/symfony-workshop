@@ -22,7 +22,7 @@
         <td>{{ post.id }}</td>
         <td><a href="{{ path('blog_show', {'id': post.id}) }}">{{ post.title }}</a></td>
         <td>{{ post.createdAt|date('Y/m/d H:i') }}</td>
-        <td><a class="btn btn-danger" href="{{ path('blog_delete', {'id':post.id}) }}">削除</a></td>
+        <td><a class="btn" href="{{ path('blog_edit', {'id':post.id}) }}">編集</a> <a class="btn btn-danger" href="{{ path('blog_delete', {'id':post.id}) }}">削除</a></td>
     </tr>
     {% else %}
     <tr>
