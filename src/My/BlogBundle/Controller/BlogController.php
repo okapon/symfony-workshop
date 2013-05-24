@@ -73,4 +73,21 @@ class BlogController extends Controller
             'form' => $form->createView(),
          );
     }
+
+    /**
+     * @Route("/{id}/delete", name="blog_delete")
+     */
+    function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $post = $em->getRepository('MyBlogBundle:Post')->find($id);
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+        // 削除
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('blog_index'));
+    }
 }
