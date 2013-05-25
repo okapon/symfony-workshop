@@ -60,14 +60,7 @@ class BlogController extends Controller
             if ($form->isValid()) {
                 // エンティティを永続化
                 $post = $form->getData();
-                $post->setCreatedAt(new \DateTime());
-                $post->setUpdatedAt(new \DateTime());
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($post);
-                $em->flush();
-
-                // メール送信
-                $this->sendEmail();
+                $this->get('my_blog.post_service')->savePost($post);
 
                 return $this->redirect($this->generateUrl('blog_index'));
             }
@@ -103,11 +96,7 @@ class BlogController extends Controller
             if ($form->isValid()) {
                 // 更新されたエンティティをデータベースに保存
                 $post = $form->getData();
-                $post->setUpdatedAt(new \DateTime());
-                $em->flush();
-
-                // メール送信
-                $this->sendEmail();
+                $this->get('my_blog.post_service')->savePost($post);
 
                 return $this->redirect($this->generateUrl('blog_index'));
             }
@@ -134,12 +123,5 @@ class BlogController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('blog_index'));
-    }
-
-    protected function sendEmail()
-    {
-        $subject = '記事の投稿が完了しました';
-        $mailTo = 'Input your email'; // $user->getEmail()
-        $this->get('my_blog.post_finish_mail')->send($subject,  $mailTo);
     }
 }
