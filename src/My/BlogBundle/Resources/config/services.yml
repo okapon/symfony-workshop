@@ -1,0 +1,4 @@
+services:
+    my_blog.post_finish_mail:
+        class: My\BlogBundle\Mail\PostFinishMail
+        arguments: [@mailer, @templating ]

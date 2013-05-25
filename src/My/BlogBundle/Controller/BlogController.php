@@ -66,6 +66,9 @@ class BlogController extends Controller
                 $em->persist($post);
                 $em->flush();
 
+                // メール送信
+                $this->sendEmail();
+
                 return $this->redirect($this->generateUrl('blog_index'));
             }
         }
@@ -103,6 +106,9 @@ class BlogController extends Controller
                 $post->setUpdatedAt(new \DateTime());
                 $em->flush();
 
+                // メール送信
+                $this->sendEmail();
+
                 return $this->redirect($this->generateUrl('blog_index'));
             }
         }
@@ -128,5 +134,12 @@ class BlogController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('blog_index'));
+    }
+
+    protected function sendEmail()
+    {
+        $subject = '記事の投稿が完了しました';
+        $mailTo = 'Input your email'; // $user->getEmail()
+        $this->get('my_blog.post_finish_mail')->send($subject,  $mailTo);
     }
 }
