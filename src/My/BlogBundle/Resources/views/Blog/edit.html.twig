@@ -1,10 +1,3 @@
 {% extends 'MyBlogBundle:Blog:new.html.twig' %}
 
 {% block page_title '記事の編集' %}
-
-{#% block content %}
-<form action="{{ path('blog_new') }}" method="post" {{ form_enctype(form) }}>
-  {{ form_widget(form) }}
-  <button class="btn btn-primary">作成</button>
-</form>
-{% endblock content %#}
