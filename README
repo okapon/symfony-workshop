@@ -1,8 +1,21 @@
 Symfony勉強会 #8
 ================
 
-Symfony勉強会 #8 のワークショップで使うブログチュートリアルアプリケーションです。
+Symfony勉強会 #8 のワークショップで使用したブログチュートリアルです。
 
-チュートリアルの進め方はwikiの方を参照してください。
+チュートリアルの進め方は、以下のwikiの方を参照してください。
+wikiの完成形はmasterブランチとして保存してあります。
+実際のソースコードを確認したい方はソースをダウンロードして下さい。
 
+```
+git clone git://github.com/mtdowling/ClassPreloader.git
+```
+
+wiki
 https://github.com/okapon/symfony-workshop/wiki
+
+wikiの方では解説していませんが、ワークショップで簡単に触れた、
+DIを用いたServiceクラスのコードもアップしています。
+興味のある方は見てみて下さい。
+
+https://github.com/okapon/symfony-workshop/tree/postService
