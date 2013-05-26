@@ -48,7 +48,8 @@ class BlogController extends Controller
     public function newAction(Request $request)
     {
         // フォームの組立
-        $form = $this->createFormBuilder(new Post())
+        $post = new Post();
+        $form = $this->createFormBuilder($post)
             ->add('title')
             ->add('body')
             ->getForm();
